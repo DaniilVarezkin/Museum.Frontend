@@ -1,0 +1,24 @@
+﻿<div class="col-lg-4 col-md-6">
+    <div class="feature-1-block text-center wow fadeInLeft" data-wow-delay=".2s" data-wow-duration=".8s">
+        <div class="feature-1-image hvr-img-zoom-1">
+            <div class="img-container">
+                <img src="@ImageUrl" alt="@Title">
+            </div>
+        </div>
+        <h4 class="feature-1-title">@Title</h4>
+        <p class="feature-1-text">
+            @Text
+        </p>
+        <div class="feature-1-link">
+            <a class="feature-1-link-btn hvr-zoom-1 hvr-zoom-1-primary" href="service-details.html">
+                <i class="icon-5"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string ImageUrl { get; set; } = string.Empty;
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public string Text { get; set; } = string.Empty;
+}

@@ -1,0 +1,10 @@
+﻿.img-container {
+    width: 330px;
+    height: 220px;
+    overflow: hidden;
+}
+
+img {
+    height: 220px;
+    width: auto;
+}
