@@ -11,6 +11,6 @@ namespace Museum.Frontend.Components.Pages.Home.Components
         public string BaseUrl => Api.BaseUrl;
 
         [Parameter]
-        public MuseumEventListVm MuseumEventList { get; set; }
+        public MuseumEventListVm? MuseumEventList { get; set; }
     }
 }

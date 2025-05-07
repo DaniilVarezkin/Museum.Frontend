@@ -14,5 +14,14 @@ namespace Museum.Frontend.Components.Pages
         {
             response = await api.GetAllAsync();
         }
+
+        protected async override Task OnInitializedAsync()
+        {
+            try
+            {
+                await base.OnInitializedAsync();
+            }
+            catch { }
+        }
     }
 }

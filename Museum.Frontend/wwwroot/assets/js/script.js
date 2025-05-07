@@ -259,54 +259,54 @@
 		});
 	}
 
-	function bannerSlider() {
-	    if ($(".banner-slider").length > 0) {
-		    // Banner Slider
-			var bannerSlider = new Swiper('.banner-slider', {
-				preloadImages: false,
-                loop: true,
-                grabCursor: true,
-                centeredSlides: false,
-                resistance: true,
-                resistanceRatio: 0.6,
-                speed: 2400,
-                spaceBetween: 0,
-                parallax: false,
-                effect: "slide",
-				autoplay: {
-				    delay: 8000,
-                    disableOnInteraction: false
-				},
-	            navigation: {
-	                nextEl: '.banner-slider-button-next',
-	                prevEl: '.banner-slider-button-prev',
-	            },
-			});
-		}
-		if ($(".banner-slider-2").length > 0) {
-		    // Banner Slider
-			var bannerSlider2 = new Swiper('.banner-slider-2', {
-				preloadImages: false,
-                loop: true,
-                grabCursor: true,
-                centeredSlides: false,
-                resistance: true,
-                resistanceRatio: 0.6,
-                speed: 2400,
-                spaceBetween: 0,
-                parallax: false,
-                effect: "fade",
-				autoplay: {
-				    delay: 8000,
-                    disableOnInteraction: false
-				},
-	            navigation: {
-	                nextEl: '.banner-slider-button-next',
-	                prevEl: '.banner-slider-button-prev',
-	            },
-			});
-		}
-	}
+	//function bannerSlider() {
+	//    if ($(".banner-slider").length > 0) {
+	//	    // Banner Slider
+	//		var bannerSlider = new Swiper('.banner-slider', {
+	//			preloadImages: false,
+ //               loop: true,
+ //               grabCursor: true,
+ //               centeredSlides: false,
+ //               resistance: true,
+ //               resistanceRatio: 0.6,
+ //               speed: 2400,
+ //               spaceBetween: 0,
+ //               parallax: false,
+ //               effect: "slide",
+	//			autoplay: {
+	//			    delay: 8000,
+ //                   disableOnInteraction: false
+	//			},
+	//            navigation: {
+	//                nextEl: '.banner-slider-button-next',
+	//                prevEl: '.banner-slider-button-prev',
+	//            },
+	//		});
+	//	}
+	//	if ($(".banner-slider-2").length > 0) {
+	//	    // Banner Slider
+	//		var bannerSlider2 = new Swiper('.banner-slider-2', {
+	//			preloadImages: false,
+ //               loop: true,
+ //               grabCursor: true,
+ //               centeredSlides: false,
+ //               resistance: true,
+ //               resistanceRatio: 0.6,
+ //               speed: 2400,
+ //               spaceBetween: 0,
+ //               parallax: false,
+ //               effect: "fade",
+	//			autoplay: {
+	//			    delay: 8000,
+ //                   disableOnInteraction: false
+	//			},
+	//            navigation: {
+	//                nextEl: '.banner-slider-button-next',
+	//                prevEl: '.banner-slider-button-prev',
+	//            },
+	//		});
+	//	}
+	//}
 
 	// Single item Carousel 
 	if ($('.single-item-carousel').length) {
@@ -720,7 +720,7 @@
 		handlePreloader();
 		sortableMasonry();
 		isotopeBlock();
-		bannerSlider();		
+		//bannerSlider();		
 	});	
 
 })(window.jQuery);

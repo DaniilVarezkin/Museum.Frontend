@@ -8,41 +8,14 @@
 
 <Banner />
 
-<FilterComponent />
+<div></div>
+@* 
+<FilterComponent /> *@
 
 @if(response != null)
 {
     <MuseumEventListComponent MuseumEventList="response" />
 }
-
-
-
-<div class="col">
-    <button class="btn btn-primary" @onclick="GetAllEventsAsync">
-        Получить список мероприятий
-    </button>
-</div>
-
-<div>
-    <h3>Response:</h3>
-    @if(response != null)
-    {
-        foreach(var museumEvent in response.MuseumEvents)
-        {
-            <p>
-                Id: @museumEvent.Id <br />
-                Name: @museumEvent.Name <br />
-                Annotation: @museumEvent.Annotation <br />
-                StartDate: @museumEvent.StartDate.ToString()
-
-                <img src="@Path.Combine(BaseUrl, museumEvent.Photos.First().FilePath.Replace("\\", "/"))" />
-            </p>
-        }
-    } else
-    {
-        <span>Нет данных</span>
-    }
-</div>
 
 
 

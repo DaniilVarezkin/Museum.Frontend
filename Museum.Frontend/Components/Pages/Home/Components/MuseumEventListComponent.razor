@@ -4,17 +4,18 @@
     <div class="gray-bg p_absolute l_0 b_0 r_0 h_340"></div>
     <div class="auto-container">
         <div class="section_heading text-center mb_60">
-            <span class="section_heading_title_small">Exclusive Offers</span>
-            <h2 class="section_heading_title_big">Featured Special <br> Offers</h2>
+            <span class="section_heading_title_small">Все события</span>
+            <h2 class="section_heading_title_big">Выставки и события</h2>
         </div>
         <div class="row">
-            @foreach(var museumEvent in MuseumEventList.MuseumEvents)
+            @if(MuseumEventList != null)
             {
-                <MuseumEventCardComponent 
-                    ImageUrl="@Path.Combine(BaseUrl, museumEvent.Photos.First().FilePath.Replace("\\", "/"))"
-                    Title="@museumEvent.Name"
-                    Text="@museumEvent.Annotation"
-                    />
+                @foreach (var museumEvent in MuseumEventList.MuseumEvents)
+                {
+                    <MuseumEventCardComponent ImageUrl="@Path.Combine(BaseUrl, museumEvent.Photos.First().FilePath.Replace("\\", "/"))"
+                                              Title="@museumEvent.Name"
+                                              Text="@museumEvent.Annotation" />
+                }
             }
         </div>
     </div>

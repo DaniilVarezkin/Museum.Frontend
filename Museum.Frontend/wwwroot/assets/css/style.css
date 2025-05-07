@@ -1536,240 +1536,110 @@ button.theme-btn.search-toggler:hover {
 ====================================================================
 ***/
 
+/* Основные стили баннера */
 .banner-section {
 	position: relative;
-	overflow: hidden;
-}
-.three-item-carousel, 
-.banner-slider {
-	position: relative;
-	height: 100% !important;
-	z-index: 9;
+	background: #ffffff;
 }
 
-.banner-section .swiper-slide {
-	position: relative;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-size: cover;
-}
-.banner-section .swiper-slide:before {
+/* Декоративный круг (можно удалить, если не нужен) */
+.banner-shape-1 {
 	position: absolute;
-	left: 0;
-	top: 0;
-	height: 100%;
-	width: 100%;
-	background-color: #000000;
-	opacity: .5;
-	content: "";
-}
-.banner-section .content-outer {
-	position: relative;
-	top: 0;
-	left: 0;
+	left: -56px;
+	top: -132px;
 	right: 0;
-	margin: 0 auto;
-	height: 100%;
-	width: 100%;
-	display: table;
-	vertical-align: middle;
+	z-index: 0;
+	border: 55px solid #F7F7F7;
+	width: 370px;
+	height: 370px;
+	border-radius: 50%;
 }
-.banner-section .content-box {
+
+/* Контейнер баннера */
+.banner-container {
 	position: relative;
-	padding: 135px 15px 135px;
-	min-height: 800px;
-	max-width: 1320px;
-	margin: 0 auto;
 	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
 	justify-content: space-between;
+	min-height: 750px; /* Можно адаптировать под нужную высоту */
 }
-.banner-section .content-box .inner {
+
+/* Фоновое изображение (справа) */
+.banner-feature-image {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	width: 50%;
+	background-size: cover;
+	background-position: center;
+	display: none; /* Скрыто на мобильных */
+}
+
+@media (min-width: 992px) {
+	.banner-feature-image {
+		display: block; /* Показываем только на больших экранах */
+	}
+}
+
+/* Контент (слева) */
+.banner-content {
 	position: relative;
-	opacity: 0;
-	-webkit-transform: translateX(100px);
-	-ms-transform: translateX(100px);
-	transform: translateX(100px);
+	width: 100%;
+	padding: 135px 80px 135px;
+	z-index: 2;
+	display: flex;
+	align-items: center;
 }
-.banner-section .swiper-slide-active .content-box .inner {
-	opacity: 1;
-	-webkit-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
-	-webkit-transform: translateX(0px);
-	-ms-transform: translateX(0px);
-	transform: translateX(0px);
+
+.content-inner {
+	max-width: 1320px;
+	margin-left: 0 auto;
 }
-.banner-slider-2 .content-box .inner {
-    transform: translateX(0px);
-    transition: .5s;
-}
-.banner-section .content-box h1 {
-	position: relative;
-	color: #ffffff;
-	text-transform: capitalize;
-	opacity: 0;
-	visibility: hidden;
-	-webkit-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
-	-webkit-transform: translateY(-20px);
-	-ms-transform: translateY(-20px);
-	transform: translateY(-20px);
-	margin-bottom: 20px;
-	line-height: 1;
-}
-.banner-section .swiper-slide-active .content-box h1 {
-	opacity: 1;
-	visibility: visible;
-	-webkit-transition-delay: 800ms;
-	-o-transition-delay: 800ms;
-	transition-delay: 800ms;
-	-webkit-transform: translateY(0px);
-	-ms-transform: translateY(0px);
-	transform: translateY(0px);
-}
-.banner-section h4 {
-	position: relative;
-	display: block;
+
+/* Текстовые стили */
+.banner-subtitle {
 	font-size: 16px;
 	font-weight: 500;
 	color: var(--theme-color);
 	margin-bottom: 15px;
-	opacity: 0;
-	visibility: hidden;
-	-webkit-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
-	-webkit-transform: translateY(20px);
-	-ms-transform: translateY(20px);
-	transform: translateY(20px);
-	font-family: inherit;
 	text-transform: uppercase;
 	letter-spacing: 3px;
 }
-.banner-section .swiper-slide-active h4 {
-	opacity: 1;
-	visibility: visible;
-	-webkit-transition-delay: 1200ms;
-	-o-transition-delay: 1200ms;
-	transition-delay: 1200ms;
-	-webkit-transform: translateY(0px);
-	-ms-transform: translateY(0px);
-	transform: translateY(0px);
+
+.banner-title {
+	color: #2C2A49;
+	margin-bottom: 20px;
+	line-height: 1.2;
+	font-size: 5em;
 }
-.banner-section .text {
-	position: relative;
+
+.banner-text {
 	font-size: 18px;
-	line-height: 32px;
-	color: #ffffff;
-	opacity: 0;
-	visibility: hidden;
-	-webkit-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
-	-webkit-transform: translateX(-50px);
-	-ms-transform: translateX(-50px);
-	transform: translateX(-50px);
+	line-height: 1.6;
+	color: #2C2A49;
+	margin-bottom: 30px;
 }
-.banner-section .swiper-slide-active .text {
-	opacity: 1;
-	visibility: visible;
-	-webkit-transition-delay: 1600ms;
-	-o-transition-delay: 1600ms;
-	transition-delay: 1600ms;
-	-webkit-transform: translateX(0px);
-	-ms-transform: translateX(0px);
-	transform: translateX(0px);
+
+/* Кнопка */
+.banner-actions {
+	margin-top: 20px;
 }
-.banner-section .link-box {
-	padding-top: 20px;
-	-webkit-transform: scaleY(0);
-	-ms-transform: scaleY(0);
-	transform: scaleY(0);
-	-webkit-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
-	-webkit-transition-delay: 2000ms;
-	-o-transition-delay: 2000ms;
-	transition-delay: 2000ms;
-	-webkit-transform-origin: bottom;
-	-ms-transform-origin: bottom;
-	transform-origin: bottom;
-	margin: 0 -10px;
+
+.btn-1 {
+	display: inline-block;
+	padding: 12px 30px;
+	background: var(--theme-color);
+	color: white;
+	text-decoration: none;
+	border-radius: 4px;
+	transition: background 0.3s;
 }
-.banner-section .swiper-slide-active .link-box {
-	-webkit-transform: scale(1);
-	-ms-transform: scale(1);
-	transform: scale(1);
-}
-.banner-section .link-box a {
-	-webkit-transition: .5s ease;
-	-o-transition: .5s ease;
-	transition: .5s ease;
-	margin: 0 10px 10px;
-}
-.banner-section .link-box a i {
-	margin-left: 12px;
-}
-.banner-section .banner-slider-nav {
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-between;
-}
-.banner-section .banner-slider-button-next {
-	position: relative;
-	width: 70px;
-	height: 70px;
-	line-height: 72px;
-	border-radius: 50%;
-	text-align: center;
-	background: #ffffff;
-	cursor: pointer;
-	z-index: 9;
-	margin-right: 40px;
-	font-size: 15px;
-	transition: .5s;
-	border: 2px solid #fff;
-	color: #333;
-}
-.banner-section .banner-slider-button-next:hover {
-	background-color: var(--theme-color);
-	border-color: var(--theme-color);
-	color: #fff;
-}
-.banner-section .banner-slider-button-prev {
-	position: relative;
-	width: 70px;
-	height: 70px;
-	line-height: 72px;
-	border-radius: 50%;
-	text-align: center;
-	background: #ffffff;
-	cursor: pointer;
-	z-index: 9;
-	margin-left: 40px;
-	font-size: 15px;
-	transition: .5s;
-	border: 2px solid #fff;
-	color: #333;
-}
-.banner-section .banner-slider-button-prev:hover {
-	background-color: var(--theme-color);
-	border-color: var(--theme-color);
-	color: #fff;
-}
+
+	.btn-1:hover {
+		background: #d1a246; /* Пример hover-эффекта */
+	}
+
+
 
 .banner-shape-1 {
     position: absolute;
@@ -1789,16 +1659,7 @@ button.theme-btn.search-toggler:hover {
     right: 0;
     bottom: 0;
     width: 50%;
-	opacity: 0;
 	background-size: cover;
-	-webkit-transition: all 500ms ease;
-	-o-transition: all 500ms ease;
-	transition: all 500ms ease;
-	transition-delay: .5s;
-}
-
-.banner-section .swiper-slide-active .banner-feature-image {
-	opacity: 1;	
 }
 
 .banner-section .banner-feature-image:before {
@@ -1809,43 +1670,6 @@ button.theme-btn.search-toggler:hover {
     bottom: 0;
     width: 350px;
     background-image: url(../images/main-slider/banner-mask.png);
-}
-
-.banner-section.style-two .content-box {
-    min-height: 900px;
-    padding-bottom: 240px;
-}
-
-/* banner style three */
-
-.banner-section.style-three  .content-box {
-    min-height: 750px;
-    padding: 100px 15px 100px;
-}
-
-.banner-section.style-three  .swiper-slide:before {
-    opacity: 0;
-}
-
-
-.banner-section.style-three  .content-box h1 {
-    color: #2C2A49;
-}
-
-.banner-section.style-three  .text {
-    color: #2C2A49;
-}
-
-.banner-section.style-three .banner-slider-nav {
-    flex-direction: column-reverse;
-    justify-content: center;
-    right: auto;
-    left: 70px;
-}
-
-.banner-section.style-three .banner-slider-nav>* {
-    margin: 10px 0;
-    border: 1px solid #E5E5E5;
 }
 
 /** scroll-to-top **/
