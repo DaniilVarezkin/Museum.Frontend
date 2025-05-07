@@ -1,4 +1,5 @@
 ﻿@inherits MuseumEventListComponentModel
+@rendermode InteractiveServer
 
 <section class="section-padding">
     <div class="gray-bg p_absolute l_0 b_0 r_0 h_340"></div>
@@ -12,9 +13,11 @@
             {
                 @foreach (var museumEvent in MuseumEventList.MuseumEvents)
                 {
+                    string detailsLink = $"/museum-details/{museumEvent.Id.ToString()}";
                     <MuseumEventCardComponent ImageUrl="@Path.Combine(BaseUrl, museumEvent.Photos.First().FilePath.Replace("\\", "/"))"
                                               Title="@museumEvent.Name"
-                                              Text="@museumEvent.Annotation" />
+                                              Text="@museumEvent.Annotation"
+                                              CardDetailsLink="@detailsLink" />
                 }
             }
         </div>

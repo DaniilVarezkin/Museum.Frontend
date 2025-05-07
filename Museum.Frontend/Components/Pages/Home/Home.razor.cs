@@ -19,9 +19,11 @@ namespace Museum.Frontend.Components.Pages
         {
             try
             {
-                await base.OnInitializedAsync();
+                await GetAllEventsAsync();
             }
-            catch { }
+            catch(Exception ex) {
+                Console.WriteLine(ex);
+            }
         }
     }
 }

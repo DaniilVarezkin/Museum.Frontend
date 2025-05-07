@@ -1540,6 +1540,7 @@ button.theme-btn.search-toggler:hover {
 .banner-section {
 	position: relative;
 	background: #ffffff;
+	overflow: hidden;
 }
 
 /* ƒекоративный круг (можно удалить, если не нужен) */
@@ -1618,6 +1619,7 @@ button.theme-btn.search-toggler:hover {
 	line-height: 1.6;
 	color: #2C2A49;
 	margin-bottom: 30px;
+	width: 50%;
 }
 
 /*  нопка */
@@ -1640,23 +1642,10 @@ button.theme-btn.search-toggler:hover {
 	}
 
 
-
-.banner-shape-1 {
-    position: absolute;
-    left: -56px;
-    top: -132px;
-    right: 0;
-    z-index: 0;
-    border: 55px solid #F7F7F7;
-    width: 370px;
-    height: 370px;
-    border-radius: 50%;
-}
-
 .banner-section .banner-feature-image {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -20px;
     bottom: 0;
     width: 50%;
 	background-size: cover;

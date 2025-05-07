@@ -10,7 +10,7 @@
             @Text
         </p>
         <div class="feature-1-link">
-            <a class="feature-1-link-btn hvr-zoom-1 hvr-zoom-1-primary" href="service-details.html">
+            <a class="feature-1-link-btn hvr-zoom-1 hvr-zoom-1-primary" href="@CardDetailsLink">
                 <i class="icon-5"></i>
             </a>
         </div>
@@ -21,4 +21,5 @@
     [Parameter] public string ImageUrl { get; set; } = string.Empty;
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public string Text { get; set; } = string.Empty;
+    [Parameter] public string CardDetailsLink { get; set; } = string.Empty;
 }

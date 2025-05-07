@@ -1,0 +1,8 @@
+﻿@page "/museum-details/{MuseumEventId}"
+
+<h3>@MuseumEventId.ToString()</h3>
+
+@code {
+    [Parameter] 
+    public string MuseumEventId { get; set; }
+}
