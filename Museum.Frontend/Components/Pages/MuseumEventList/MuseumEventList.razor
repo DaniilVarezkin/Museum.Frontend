@@ -5,6 +5,8 @@
 @using Museum.Frontend.Components.Pages.MuseumEventList.Components
 @using Museum.Frontend.Infrastructure
 
+<FilterComponent />
+
 <section class="section-padding">
     <div class="auto-container">
         <div class="row">
@@ -19,8 +21,8 @@
                         Text="@museumEvent.Annotation"
                         CardDetailsLink="@detailsLink"
                         EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(museumEvent.EventType)"
-                        StartDate=""
-                        EndDate=""/>
+                        StartDate="@museumEvent.StartDate"
+                        EndDate="@museumEvent.EndDate"/>
                 }
             } 
             else

@@ -22,7 +22,6 @@
 
 namespace Museum.Frontend.Services
 {
-    using System.ComponentModel;
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -289,7 +288,7 @@ namespace Museum.Frontend.Services
         /// </remarks>
         /// <returns>Returns the ID of the newly created event</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task CreateAsync(string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> photos)
+        public virtual System.Threading.Tasks.Task CreateAsync(string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTime? startDate, System.DateTime? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> photos)
         {
             return CreateAsync(name, annotation, description, audienceType, eventType, startDate, endDate, ticketLink, photos, System.Threading.CancellationToken.None);
         }
@@ -313,7 +312,7 @@ namespace Museum.Frontend.Services
         /// </remarks>
         /// <returns>Returns the ID of the newly created event</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task CreateAsync(string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> photos, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task CreateAsync(string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTime? startDate, System.DateTime? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> photos, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -478,7 +477,7 @@ namespace Museum.Frontend.Services
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateAsync(System.Guid? id, string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> addedPhotos, System.Collections.Generic.IEnumerable<System.Guid> deletedPhoto)
+        public virtual System.Threading.Tasks.Task UpdateAsync(System.Guid? id, string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTime? startDate, System.DateTime? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> addedPhotos, System.Collections.Generic.IEnumerable<System.Guid> deletedPhoto)
         {
             return UpdateAsync(id, name, annotation, description, audienceType, eventType, startDate, endDate, ticketLink, addedPhotos, deletedPhoto, System.Threading.CancellationToken.None);
         }
@@ -503,7 +502,7 @@ namespace Museum.Frontend.Services
         /// </remarks>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateAsync(System.Guid? id, string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTimeOffset? startDate, System.DateTimeOffset? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> addedPhotos, System.Collections.Generic.IEnumerable<System.Guid> deletedPhoto, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task UpdateAsync(System.Guid? id, string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTime? startDate, System.DateTime? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> addedPhotos, System.Collections.Generic.IEnumerable<System.Guid> deletedPhoto, System.Threading.CancellationToken cancellationToken)
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -895,25 +894,21 @@ namespace Museum.Frontend.Services
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum AudienceType : byte
+    public enum AudienceType
     {
-        [Description("Взрослая аудитория")]
-        Adult,
 
-        [Description("Дети")]
-        Children,
+        _0 = 0,
 
-        [Description("Дети до 6 лет")]
-        ChildrenUnder6,
+        _1 = 1,
 
-        [Description("Дети от 6 до 14 лет")]
-        Children6To14,
+        _2 = 2,
 
-        [Description("Пушкинская карта от 14 до 22 лет")]
-        PushkinCard14To22,
+        _3 = 3,
 
-        [Description("Семейная аудитория")]
-        Family
+        _4 = 4,
+
+        _5 = 5,
+
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -951,10 +946,10 @@ namespace Museum.Frontend.Services
         public MuseumEventType EventType { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("startDate")]
-        public System.DateTimeOffset StartDate { get; set; }
+        public System.DateTime StartDate { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("endDate")]
-        public System.DateTimeOffset? EndDate { get; set; }
+        public System.DateTime? EndDate { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("ticketLink")]
         public string TicketLink { get; set; }
@@ -987,10 +982,10 @@ namespace Museum.Frontend.Services
         public string Annotation { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("startDate")]
-        public System.DateTimeOffset StartDate { get; set; }
+        public System.DateTime StartDate { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("endDate")]
-        public System.DateTimeOffset? EndDate { get; set; }
+        public System.DateTime? EndDate { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("audienceType")]
         public AudienceType AudienceType { get; set; }
@@ -1006,26 +1001,20 @@ namespace Museum.Frontend.Services
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public enum MuseumEventType
     {
-        [Description("Акция")]
-        Promotion,
 
-        [Description("Выставка")]
-        Exhibition,
+        _0 = 0,
 
-        [Description("Квест")]
-        Quest,
+        _1 = 1,
 
-        [Description("Лекция")]
-        Lecture,
+        _2 = 2,
 
-        [Description("Мастер-класс")]
-        MasterClass,
+        _3 = 3,
 
-        [Description("Музейное занятие")]
-        MuseumActivity,
+        _4 = 4,
 
-        [Description("Экскурсия")]
-        Tour
+        _5 = 5,
+
+        _6 = 6,
 
     }
 

@@ -22,12 +22,9 @@ style="background-image: url(@PagetTitleImg); background-size: cover">
             <div class="col-lg-4">
                 @if(DetailsVm != null)
                 {
-                    DateTime? endDate = DetailsVm.EndDate.HasValue
-                    ? DetailsVm.EndDate.Value.DateTime
-                    : null;
                     <WidgetComponent 
-                        StartDate="@DetailsVm.StartDate.DateTime"
-                        EndDate="@endDate" 
+                        StartDate="@DetailsVm.StartDate"
+                        EndDate="@DetailsVm.EndDate" 
                         EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(DetailsVm.EventType)"/>
                 }
             </div>

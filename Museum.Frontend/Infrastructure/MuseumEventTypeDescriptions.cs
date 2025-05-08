@@ -6,13 +6,13 @@ namespace Museum.Frontend.Infrastructure
     {
         private static readonly Dictionary<MuseumEventType, string> MuseumEventTypeDescriptionsDictionary = new()
         {
-            { MuseumEventType.Promotion, "Акция" },
-            { MuseumEventType.Exhibition, "Выставка" },
-            { MuseumEventType.Quest, "Квест" },
-            { MuseumEventType.Lecture, "Лекция" },
-            { MuseumEventType.MasterClass, "Мастер-класс" },
-            { MuseumEventType.MuseumActivity, "Музейное занятие" },
-            { MuseumEventType.Tour, "Экскурсия" }
+            { MuseumEventType._0, "Акция" },
+            { MuseumEventType._1, "Выставка" },
+            { MuseumEventType._2, "Квест" },
+            { MuseumEventType._3, "Лекция" },
+            { MuseumEventType._4, "Мастер-класс" },
+            { MuseumEventType._5, "Музейное занятие" },
+            { MuseumEventType._6, "Экскурсия" }
         };
 
         public static string GetMuseumEventTypeDescription(MuseumEventType type)
