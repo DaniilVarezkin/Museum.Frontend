@@ -82,7 +82,7 @@ body {
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
 	background: rgb(255, 255, 255);
-	font-family: 'DM Sans', sans-serif;
+	font-family: 'Nunito', sans-serif;
 }
 a,
 a:active,
@@ -112,7 +112,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 	margin: 0px;
 	background: none;
 	color: #2B2D42;
-	font-family: 'Cormorant', serif;
+	font-family: 'Prata', serif;
 }
 
 h1, .h1 {
@@ -660,7 +660,7 @@ ul.header-top-1-contact-info li a:hover {
 	font-size: 17px;
 	font-weight: 500;
 	line-height: 30px;
-	text-transform: capitalize;
+/*	text-transform: capitalize;*/
 	color: #2C2A49;
 	padding: 3px 0;
 	opacity: 1;

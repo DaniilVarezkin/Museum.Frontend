@@ -22,6 +22,7 @@
 
 namespace Museum.Frontend.Services
 {
+    using System.ComponentModel;
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -894,21 +895,25 @@ namespace Museum.Frontend.Services
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public enum AudienceType
+    public enum AudienceType : byte
     {
+        [Description("Взрослая аудитория")]
+        Adult,
 
-        _0 = 0,
+        [Description("Дети")]
+        Children,
 
-        _1 = 1,
+        [Description("Дети до 6 лет")]
+        ChildrenUnder6,
 
-        _2 = 2,
+        [Description("Дети от 6 до 14 лет")]
+        Children6To14,
 
-        _3 = 3,
+        [Description("Пушкинская карта от 14 до 22 лет")]
+        PushkinCard14To22,
 
-        _4 = 4,
-
-        _5 = 5,
-
+        [Description("Семейная аудитория")]
+        Family
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -1001,20 +1006,26 @@ namespace Museum.Frontend.Services
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public enum MuseumEventType
     {
+        [Description("Акция")]
+        Promotion,
 
-        _0 = 0,
+        [Description("Выставка")]
+        Exhibition,
 
-        _1 = 1,
+        [Description("Квест")]
+        Quest,
 
-        _2 = 2,
+        [Description("Лекция")]
+        Lecture,
 
-        _3 = 3,
+        [Description("Мастер-класс")]
+        MasterClass,
 
-        _4 = 4,
+        [Description("Музейное занятие")]
+        MuseumActivity,
 
-        _5 = 5,
-
-        _6 = 6,
+        [Description("Экскурсия")]
+        Tour
 
     }
 

@@ -1,0 +1,33 @@
+﻿@page "/museum-events"
+@rendermode InteractiveServer
+@inherits MuseumEventListViewModel
+
+@using Museum.Frontend.Components.Pages.MuseumEventList.Components
+@using Museum.Frontend.Infrastructure
+
+<section class="section-padding">
+    <div class="auto-container">
+        <div class="row">
+            @if(MuseumEventListVm != null)
+            {
+                foreach(var museumEvent in MuseumEventListVm.MuseumEvents)
+                {
+                    string detailsLink = $"/museum-details/{museumEvent.Id.ToString()}";
+
+                    <EventCard ImageUrl="@Path.Combine(BaseUrl, museumEvent.Photos.First().FilePath.Replace("\\", "/"))"
+                        Title="@museumEvent.Name"
+                        Text="@museumEvent.Annotation"
+                        CardDetailsLink="@detailsLink"
+                        EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(museumEvent.EventType)"
+                        StartDate=""
+                        EndDate=""/>
+                }
+            } 
+            else
+            {
+                <h4>Нет событий</h4>
+            }
+           
+        </div>
+    </div>
+</section>

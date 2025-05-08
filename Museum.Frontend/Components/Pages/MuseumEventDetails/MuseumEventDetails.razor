@@ -1,6 +1,7 @@
 ﻿@page "/museum-details/{Id}"
 @inherits MuseumEventDetailsViewModel
-
+@using Museum.Frontend.Components.Pages.MuseumEventDetails.Components;
+@using Museum.Frontend.Infrastructure
 
 <div class="page-title" 
 style="background-image: url(@PagetTitleImg); background-size: cover">
@@ -14,23 +15,35 @@ style="background-image: url(@PagetTitleImg); background-size: cover">
         <div class="row">
             <div class="col-lg-8 pe-lg-35">
                 <div class="single-post">
-                    <span class="section_heading_title_small">FORM $55.00</span>
                     <h2 class="mb_40">@DetailsVm?.Name</h2>
-                    @* <p class="mb_40">@DetailsVm?.Annotation</p> *@
                     <p class="mb_20">@DetailsVm?.Description</p>
-
-                    <div class="position-relative mb_60">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                @if(DetailsVm != null)
+                {
+                    DateTime? endDate = DetailsVm.EndDate.HasValue
+                    ? DetailsVm.EndDate.Value.DateTime
+                    : null;
+                    <WidgetComponent 
+                        StartDate="@DetailsVm.StartDate.DateTime"
+                        EndDate="@endDate" 
+                        EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(DetailsVm.EventType)"/>
+                }
+            </div>
+        </div>
+        @if (DetailsVm?.Photos != null && DetailsVm.Photos.Any())
+        {
+        <h3 class="fs_40 mb_30">Фотографии</h3>
+        <div class="position-relative mb_60">
                         <div class="swiper room-gallery-slider">
                             <div class="swiper-wrapper">
-                                @if (DetailsVm?.Photos != null && DetailsVm.Photos.Any())
-                                {
                                     @foreach (var photo in DetailsVm.Photos)
                                     {
                                         <div class="swiper-slide">
                                             <img src="@Path.Combine(BaseUrl, photo.FilePath.Replace("\\", "/"))" alt="@DetailsVm">
                                         </div>
                                     }
-                                }
                             </div>
                             <!-- Добавляем навигационные кнопки -->
                             <div class="swiper-button-next px-4">
@@ -44,28 +57,7 @@ style="background-image: url(@PagetTitleImg); background-size: cover">
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
-                    <h3 class="fs_40 mb_30">Amenities</h3>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="widget mb_40 gray-bg p_40">
-                    <h4 class="mb_20">Your Reservation</h4>
-                    <div class="booking-form-3">
-                        <form class="hotel-booking-form-1-form d-block">
-                            <div class="form-group mt-4">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h4 class="mb_20">Your Price</h4>
-                                    <p>$9.0</p>
-                                </div>
-                            </div>
-                            <div class="form-group mb-0">
-                                <button type="submit" class="btn-1">Book Now<span></span></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+         }
     </div>
 </section>
 
@@ -73,7 +65,7 @@ style="background-image: url(@PagetTitleImg); background-size: cover">
 <section class="section-padding pt-0">
     <div class="auto-container">
         <div class="section_heading mb_55">
-            <h2 class="section_heading_title_big">Related Rooms</h2>
+            <h2 class="section_heading_title_big">Похожие мероприятия</h2>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-6">
