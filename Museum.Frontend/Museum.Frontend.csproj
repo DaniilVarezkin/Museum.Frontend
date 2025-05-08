@@ -6,4 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="Museum.Domain">
+      <HintPath>..\..\Museum.Backend\Museum.Domain\bin\Debug\net8.0\Museum.Domain.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

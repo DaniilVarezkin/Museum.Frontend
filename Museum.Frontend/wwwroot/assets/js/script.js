@@ -308,6 +308,35 @@
 	//	}
 	//}
 
+	//My Slider
+	if ($('.room-gallery-slider').length) {
+		new Swiper('.room-gallery-slider', {
+			loop: true,
+			autoplay: {
+				delay: 5000,
+				disableOnInteraction: false,
+			},
+			navigation: {
+				nextEl: '.swiper-button-next',
+				prevEl: '.swiper-button-prev',
+			},
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+			},
+			keyboard: {
+				enabled: true,
+				onlyInViewport: true,
+			},
+			// Можно добавить breakpoints для адаптивности
+			breakpoints: {
+				768: {
+					slidesPerView: 1
+				}
+			}
+		});
+	}
+
 	// Single item Carousel 
 	if ($('.single-item-carousel').length) {
 		var singleItemCarousel = new Swiper('.single-item-carousel', {
