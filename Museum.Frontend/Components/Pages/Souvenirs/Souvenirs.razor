@@ -1,0 +1,35 @@
+﻿@page "/souvenirs"
+@inherits SouvenirsViewModel
+
+<div class="page-title" style="background-image: url(assets/images/background/souvenirs-page-title-1.jpg);">
+    <div class="auto-container">
+        <h1>Сувениры</h1>
+    </div>
+</div>
+
+<!-- Souvenirs -->
+<section class="pt_60 pb_60">
+    <div class="auto-container">
+        <div class="section_heading text-center mb_60">
+            <h2 class="section_heading_title_big mb_20">Сувениры</h2>
+            <span class="section_heading_title_small">Вы можете приобрести в музее</span>
+        </div>
+        <div class="row">
+            @if(SouvenirListVm != null)
+            {
+                foreach(var souvenir in SouvenirListVm.Souvenirs)
+                {
+                    string photoUrl = souvenir.Photo != null 
+                        ? Path.Combine(BaseUrl, souvenir.Photo.FilePath.Replace("\\", "/"))
+                    : @"\assets\images\resource\no_photo.jpg";
+                
+                    <SouvenirComponent  Name="@souvenir.Name"
+                                        Description="@souvenir.Description"
+                                        Price="@souvenir.Price.ToString()"
+                                        PhotoUrl="@photoUrl" />
+                }
+            }
+        </div>
+    </div>
+</section>
+

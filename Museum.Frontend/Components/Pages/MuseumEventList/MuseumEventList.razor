@@ -5,10 +5,14 @@
 @using Museum.Frontend.Components.Pages.MuseumEventList.Components
 @using Museum.Frontend.Infrastructure
 
-<FilterComponent />
+@* <FilterComponent /> *@
 
-<section class="section-padding">
+<section class="pt_60 pb_60">
     <div class="auto-container">
+        <div class="section_heading text-center mb_60">
+            <h2 class="section_heading_title_big mb_20">Выставки и события</h2>
+            <span class="section_heading_title_small">Все выставки и события</span>
+        </div>
         <div class="row">
             @if(MuseumEventListVm != null)
             {
@@ -21,8 +25,8 @@
                         Text="@museumEvent.Annotation"
                         CardDetailsLink="@detailsLink"
                         EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(museumEvent.EventType)"
-                        StartDate="@museumEvent.StartDate"
-                        EndDate="@museumEvent.EndDate"/>
+                        StartDate="@museumEvent.StartDate.DateTime"
+                        EndDate="@(museumEvent.EndDate.HasValue ? museumEvent.EndDate.Value.DateTime : null)"/>
                 }
             } 
             else

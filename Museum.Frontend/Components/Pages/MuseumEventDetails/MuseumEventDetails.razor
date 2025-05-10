@@ -23,9 +23,9 @@ style="background-image: url(@PagetTitleImg); background-size: cover">
                 @if(DetailsVm != null)
                 {
                     <WidgetComponent 
-                        StartDate="@DetailsVm.StartDate"
-                        EndDate="@DetailsVm.EndDate" 
-                        EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(DetailsVm.EventType)"/>
+                        StartDate="@DetailsVm.StartDate.DateTime"
+                                     EndDate="@(DetailsVm.EndDate.HasValue ? DetailsVm.EndDate.Value.DateTime : null)"
+                                     EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(DetailsVm.EventType)"/>
                 }
             </div>
         </div>

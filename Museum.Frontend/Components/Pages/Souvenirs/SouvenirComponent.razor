@@ -1,0 +1,22 @@
+<div class="col-lg-4 col-md-6">
+    <div class="room-1-block wow fadeInUp" data-wow-delay=".2s" data-wow-duration=".8s">
+        <div class="room-1-image hvr-img-zoom-1">
+            <img src="@PhotoUrl" alt="@Name">
+        </div>
+        <div class="room-1-content">
+            <h4 class="room-1-title mb_20 pt_20">@Name</h4>
+            <p class="room-1-text mb_30">@Description</p>
+            <div class="d-flex align-items-center">
+                <span class="me-2 h5">Цена:</span>
+                <span class="me-2 h5">@Price Р</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string Name { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public string Price { get; set; }
+    [Parameter] public string PhotoUrl { get; set; }
+}

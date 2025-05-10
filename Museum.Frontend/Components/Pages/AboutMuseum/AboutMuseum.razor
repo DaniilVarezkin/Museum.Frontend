@@ -1,0 +1,48 @@
+﻿@page "/about-museum"
+@inherits AboutMuseumViewModel
+@rendermode InteractiveServer
+
+<div class="page-title" style="background-image: url(assets/images/background/about-page-title-1.jpg); background-size: cover; background-position: center; background-repeat: no-repeat;">
+    <div class="auto-container">
+        <h1>О музее</h1>
+    </div>
+</div>
+
+<!-- About Two -->
+<section class="section-padding">
+    <div class="auto-container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section_heading mb_20">
+                    <span class="section_heading_title_small">О музее</span>
+                    <h2 class="section_heading_title_big">Национальный музей Республики Татарстан.</h2>
+                </div>
+                <p class="aboout-1-desc mb_30">
+                    Национальный музей Республики Татарстан — крупнейшее музейное учреждение 
+                    республики и один из старейших музеев России. Он был основан как Казанский 
+                    городской музей, а в 2001 году постановлением Кабинета Министров Республики 
+                    Татарстан получил современный статус. <br />
+
+                    Музей располагается в историческом здании, в самом центре Казани, и представляет 
+                    уникальную коллекцию, отражающую богатую историю, культуру и традиции народов 
+                    Татарстана. Экспозиции охватывают широкий временной диапазон — от древнейших 
+                    археологических находок до современных культурных артефактов.
+                </p>
+                @* <div class="about-1-btn mb_30"> *@
+                @*     <a href="about.html" class="btn-1">Discover More<span></span></a> *@
+                @* </div> *@
+            </div>
+            <div class="col-lg-6 ps-lg-5">
+                <div class="about-2-image-wrap mb_30 p_relative">
+                    <div class="about-2-shape-1"><img src="assets/images/shape/pattern-1.png" alt=""></div>
+                    <div class="about-2-image-1" data-parallax='{"y": -20}'><img src="assets/images/resource/about-museum-2.jpg" alt=""></div>
+                    <div class="about-2-image-2" data-parallax='{"y": 20}'><img src="assets/images/resource/museum-about-4.jpg" alt=""></div>
+                    <div class="about-2-video-area">
+                        <div class="about-2-video-btn"><a href="https://www.youtube.com/watch?v=XHOmBV4js_E" class="overlay-link play-now ripple" data-fancybox="video-1" data-caption=""><i class="icon-19"></i></a></div>
+                        <p class="about-2-video-title">Watch Exclusive <br> Video</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

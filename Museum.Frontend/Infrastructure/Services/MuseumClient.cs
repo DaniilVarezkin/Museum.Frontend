@@ -72,20 +72,6 @@ namespace Museum.Frontend.Services
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
-        /// <summary>
-        /// Get the list of museum events
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// <br/>GET /museum
-        /// </remarks>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<MuseumEventListVm> GetAllAsync()
-        {
-            return GetAllAsync(System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Get the list of museum events
@@ -96,7 +82,7 @@ namespace Museum.Frontend.Services
         /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<MuseumEventListVm> GetAllAsync(System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<MuseumEventListVm> GetAllAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -164,20 +150,6 @@ namespace Museum.Frontend.Services
             }
         }
 
-        /// <summary>
-        /// Get the museum event by Id
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// <br/>GET /museum/F091F1EC-ED13-4D2D-BF4A-E340403D953
-        /// </remarks>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<MuseumEventDetailsVm> GetAsync(System.Guid id)
-        {
-            return GetAsync(id, System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Get the museum event by Id
@@ -188,7 +160,7 @@ namespace Museum.Frontend.Services
         /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<MuseumEventDetailsVm> GetAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<MuseumEventDetailsVm> GetAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -270,29 +242,6 @@ namespace Museum.Frontend.Services
             }
         }
 
-        /// <summary>
-        /// Creates a new museum event
-        /// </summary>
-        /// <remarks>
-        /// POST /museum
-        /// <br/>Content-Type: multipart/form-data
-        /// <br/>Bulk:
-        /// <br/>- Name: Заголовок один
-        /// <br/>- Annotation: Аннотация к событию 1
-        /// <br/>- Description: Описание к событию 1
-        /// <br/>- AudienceType: 1
-        /// <br/>- EventType: 0
-        /// <br/>- StartDate: 2024-05-20T14:30:00
-        /// <br/>- TicketLink: https://example.com
-        /// <br/>- Photos: (опционально) один или несколько файлов изображений
-        /// </remarks>
-        /// <returns>Returns the ID of the newly created event</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task CreateAsync(string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTime? startDate, System.DateTime? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> photos)
-        {
-            return CreateAsync(name, annotation, description, audienceType, eventType, startDate, endDate, ticketLink, photos, System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Creates a new museum event
@@ -310,9 +259,11 @@ namespace Museum.Frontend.Services
         /// <br/>- TicketLink: https://example.com
         /// <br/>- Photos: (опционально) один или несколько файлов изображений
         /// </remarks>
+        /// <param name="audienceType">Тип аудитории мероприятия</param>
+        /// <param name="eventType">Тип музейного мероприятия</param>
         /// <returns>Returns the ID of the newly created event</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task CreateAsync(string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTime? startDate, System.DateTime? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> photos, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task CreateAsync(string name = null, string annotation = null, string description = null, AudienceType? audienceType = null, MuseumEventType? eventType = null, System.DateTimeOffset? startDate = null, System.DateTimeOffset? endDate = null, string ticketLink = null, System.Collections.Generic.IEnumerable<FileParameter> photos = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -367,9 +318,7 @@ namespace Museum.Frontend.Services
                         content_.Add(new System.Net.Http.StringContent(ConvertToString(startDate, System.Globalization.CultureInfo.InvariantCulture)), "StartDate");
                     }
 
-                    if (endDate == null)
-                        throw new System.ArgumentNullException("endDate");
-                    else
+                    if (endDate != null)
                     {
                         content_.Add(new System.Net.Http.StringContent(ConvertToString(endDate, System.Globalization.CultureInfo.InvariantCulture)), "EndDate");
                     }
@@ -381,9 +330,7 @@ namespace Museum.Frontend.Services
                         content_.Add(new System.Net.Http.StringContent(ConvertToString(ticketLink, System.Globalization.CultureInfo.InvariantCulture)), "TicketLink");
                     }
 
-                    if (photos == null)
-                        throw new System.ArgumentNullException("photos");
-                    else
+                    if (photos != null)
                     {
                         foreach (var item_ in photos)
                         {
@@ -458,38 +405,15 @@ namespace Museum.Frontend.Services
             }
         }
 
-        /// <summary>
-        /// Creates a new museum event
-        /// </summary>
-        /// <remarks>
-        /// POST /museum
-        /// <br/>Content-Type: multipart/form-data
-        /// <br/>Bulk:
-        /// <br/>- Name: Заголовок один
-        /// <br/>- Annotation: Аннотация к событию 1
-        /// <br/>- Description: Описание к событию 1
-        /// <br/>- AudienceType: 1
-        /// <br/>- EventType: 0
-        /// <br/>- StartDate: 2024-05-20T14:30:00
-        /// <br/>- TicketLink: https://example.com
-        /// <br/>- AddedPhotos: (опционально) один или несколько файлов изображений
-        /// <br/>- DeletedPhotos: 79396c57-f07c-4dfa-af5b-b5a7e5aa258fб, 80396c57-f07c-4dfa-af5b-b5a7e5aa257j
-        /// </remarks>
-        /// <returns>OK</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task UpdateAsync(System.Guid? id, string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTime? startDate, System.DateTime? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> addedPhotos, System.Collections.Generic.IEnumerable<System.Guid> deletedPhoto)
-        {
-            return UpdateAsync(id, name, annotation, description, audienceType, eventType, startDate, endDate, ticketLink, addedPhotos, deletedPhoto, System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Creates a new museum event
         /// </summary>
         /// <remarks>
-        /// POST /museum
+        /// PUT /museum
         /// <br/>Content-Type: multipart/form-data
         /// <br/>Bulk:
+        /// <br/>- Id: 79396c57-f07c-4dfa-af5b-b5a7e5aa258fб
         /// <br/>- Name: Заголовок один
         /// <br/>- Annotation: Аннотация к событию 1
         /// <br/>- Description: Описание к событию 1
@@ -500,9 +424,11 @@ namespace Museum.Frontend.Services
         /// <br/>- AddedPhotos: (опционально) один или несколько файлов изображений
         /// <br/>- DeletedPhotos: 79396c57-f07c-4dfa-af5b-b5a7e5aa258fб, 80396c57-f07c-4dfa-af5b-b5a7e5aa257j
         /// </remarks>
+        /// <param name="audienceType">Тип аудитории мероприятия</param>
+        /// <param name="eventType">Тип музейного мероприятия</param>
         /// <returns>OK</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task UpdateAsync(System.Guid? id, string name, string annotation, string description, AudienceType? audienceType, MuseumEventType? eventType, System.DateTime? startDate, System.DateTime? endDate, string ticketLink, System.Collections.Generic.IEnumerable<FileParameter> addedPhotos, System.Collections.Generic.IEnumerable<System.Guid> deletedPhoto, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task UpdateAsync(System.Guid? id = null, string name = null, string annotation = null, string description = null, AudienceType? audienceType = null, MuseumEventType? eventType = null, System.DateTimeOffset? startDate = null, System.DateTimeOffset? endDate = null, string ticketLink = null, System.Collections.Generic.IEnumerable<FileParameter> addedPhotos = null, System.Collections.Generic.IEnumerable<System.Guid> deletedPhoto = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -564,9 +490,7 @@ namespace Museum.Frontend.Services
                         content_.Add(new System.Net.Http.StringContent(ConvertToString(startDate, System.Globalization.CultureInfo.InvariantCulture)), "StartDate");
                     }
 
-                    if (endDate == null)
-                        throw new System.ArgumentNullException("endDate");
-                    else
+                    if (endDate != null)
                     {
                         content_.Add(new System.Net.Http.StringContent(ConvertToString(endDate, System.Globalization.CultureInfo.InvariantCulture)), "EndDate");
                     }
@@ -578,9 +502,7 @@ namespace Museum.Frontend.Services
                         content_.Add(new System.Net.Http.StringContent(ConvertToString(ticketLink, System.Globalization.CultureInfo.InvariantCulture)), "TicketLink");
                     }
 
-                    if (addedPhotos == null)
-                        throw new System.ArgumentNullException("addedPhotos");
-                    else
+                    if (addedPhotos != null)
                     {
                         foreach (var item_ in addedPhotos)
                         {
@@ -591,9 +513,7 @@ namespace Museum.Frontend.Services
                         }
                     }
 
-                    if (deletedPhoto == null)
-                        throw new System.ArgumentNullException("deletedPhoto");
-                    else
+                    if (deletedPhoto != null)
                     {
                         foreach (var item_ in deletedPhoto)
                         {
@@ -680,20 +600,6 @@ namespace Museum.Frontend.Services
             }
         }
 
-        /// <summary>
-        /// Delete the museum event by Id
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// <br/>DELETE /museum/F091F1EC-ED13-4D2D-BF4A-E340403D953
-        /// </remarks>
-        /// <returns>Success</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task DeleteAsync(System.Guid id)
-        {
-            return DeleteAsync(id, System.Threading.CancellationToken.None);
-        }
-
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
         /// Delete the museum event by Id
@@ -704,7 +610,7 @@ namespace Museum.Frontend.Services
         /// </remarks>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task DeleteAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -758,6 +664,555 @@ namespace Museum.Frontend.Services
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             throw new ApiException<ProblemDetails>("Not found museum event", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Get the list of souvenirs
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// <br/>GET /souvenir
+        /// </remarks>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<SouvenirListVm> GetAll2Async(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Souvenir/GetAll"
+                    urlBuilder_.Append("api/Souvenir/GetAll");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<SouvenirListVm>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Get the souvenir by Id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// <br/>GET /souvenir/F091F1EC-ED13-4D2D-BF4A-E340403D953
+        /// </remarks>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<SouvenirDetailsVm> Get2Async(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Souvenir/Get/{id}"
+                    urlBuilder_.Append("api/Souvenir/Get/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<SouvenirDetailsVm>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Not found souvenir", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new souvenir
+        /// </summary>
+        /// <remarks>
+        /// POST /souvenir
+        /// <br/>Content-Type: multipart/form-data
+        /// <br/>Bulk:
+        /// <br/>- Name: Заголовок один
+        /// <br/>- Description: Описание к событию 1
+        /// <br/>- Price: 1
+        /// <br/>- Cound: 0
+        /// <br/>- Photo: (опционально) файл изоброажение
+        /// </remarks>
+        /// <returns>Returns the ID of the newly created souvenir</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Guid> Create2Async(string name = null, string description = null, int? price = null, int? count = null, FileParameter photo = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var boundary_ = System.Guid.NewGuid().ToString();
+                    var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);
+                    content_.Headers.Remove("Content-Type");
+                    content_.Headers.TryAddWithoutValidation("Content-Type", "multipart/form-data; boundary=" + boundary_);
+
+                    if (name == null)
+                        throw new System.ArgumentNullException("name");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture)), "Name");
+                    }
+
+                    if (description == null)
+                        throw new System.ArgumentNullException("description");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(description, System.Globalization.CultureInfo.InvariantCulture)), "Description");
+                    }
+
+                    if (price == null)
+                        throw new System.ArgumentNullException("price");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(price, System.Globalization.CultureInfo.InvariantCulture)), "Price");
+                    }
+
+                    if (count == null)
+                        throw new System.ArgumentNullException("count");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(count, System.Globalization.CultureInfo.InvariantCulture)), "Count");
+                    }
+
+                    if (photo != null)
+                    {
+                        var content_photo_ = new System.Net.Http.StreamContent(photo.Data);
+                        if (!string.IsNullOrEmpty(photo.ContentType))
+                            content_photo_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(photo.ContentType);
+                        content_.Add(content_photo_, "Photo", photo.FileName ?? "Photo");
+                    }
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Souvenir/Create"
+                    urlBuilder_.Append("api/Souvenir/Create");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Guid>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("If the request is invalid", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new museum event
+        /// </summary>
+        /// <remarks>
+        /// PUT /museum
+        /// <br/>Content-Type: multipart/form-data
+        /// <br/>Bulk:
+        /// <br/>- Id: 79396c57-f07c-4dfa-af5b-b5a7e5aa258fб
+        /// <br/>- Name: Заголовок один
+        /// <br/>- Description: Описание к событию 1
+        /// <br/>- Price: 1
+        /// <br/>- Cound: 0
+        /// <br/>- Photo: (опционально) файл изоброажение
+        /// </remarks>
+        /// <returns>OK</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task Update2Async(System.Guid? id = null, string name = null, string description = null, int? price = null, int? count = null, FileParameter photo = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var boundary_ = System.Guid.NewGuid().ToString();
+                    var content_ = new System.Net.Http.MultipartFormDataContent(boundary_);
+                    content_.Headers.Remove("Content-Type");
+                    content_.Headers.TryAddWithoutValidation("Content-Type", "multipart/form-data; boundary=" + boundary_);
+
+                    if (id == null)
+                        throw new System.ArgumentNullException("id");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)), "Id");
+                    }
+
+                    if (name == null)
+                        throw new System.ArgumentNullException("name");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture)), "Name");
+                    }
+
+                    if (description == null)
+                        throw new System.ArgumentNullException("description");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(description, System.Globalization.CultureInfo.InvariantCulture)), "Description");
+                    }
+
+                    if (price == null)
+                        throw new System.ArgumentNullException("price");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(price, System.Globalization.CultureInfo.InvariantCulture)), "Price");
+                    }
+
+                    if (count == null)
+                        throw new System.ArgumentNullException("count");
+                    else
+                    {
+                        content_.Add(new System.Net.Http.StringContent(ConvertToString(count, System.Globalization.CultureInfo.InvariantCulture)), "Count");
+                    }
+
+                    if (photo != null)
+                    {
+                        var content_photo_ = new System.Net.Http.StreamContent(photo.Data);
+                        if (!string.IsNullOrEmpty(photo.ContentType))
+                            content_photo_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse(photo.ContentType);
+                        content_.Add(content_photo_, "Photo", photo.FileName ?? "Photo");
+                    }
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Souvenir/Update"
+                    urlBuilder_.Append("api/Souvenir/Update");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("If the request is invalid", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("If souvenir not found by Id", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        if (status_ == 204)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Delete the souvenir by Id
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// <br/>DELETE /souvenir/F091F1EC-ED13-4D2D-BF4A-E340403D953
+        /// </remarks>
+        /// <param name="id">Souvenir id (guid)</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task Delete2Async(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (id == null)
+                throw new System.ArgumentNullException("id");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("DELETE");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Souvenir/Delete/{id}"
+                    urlBuilder_.Append("api/Souvenir/Delete/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 204)
+                        {
+                            return;
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<ProblemDetails>("Not found souvenir", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                         else
                         if (status_ == 200)
@@ -877,6 +1332,10 @@ namespace Museum.Frontend.Services
             {
                 return string.Join(",", (string[])value);
             }
+            else if (value is DateTimeOffset)
+            {
+                return value.ToString();
+            }
             else if (value.GetType().IsArray)
             {
                 var valueArray = (System.Array)value;
@@ -893,6 +1352,9 @@ namespace Museum.Frontend.Services
         }
     }
 
+    /// <summary>
+    /// Тип аудитории мероприятия
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public enum AudienceType
     {
@@ -912,92 +1374,370 @@ namespace Museum.Frontend.Services
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class EventPhotoDto
+    public partial class MuseumEventDetailsVm : System.ComponentModel.INotifyPropertyChanged
     {
+        private System.Guid _id;
+        private string _name;
+        private string _annotation;
+        private string _description;
+        private AudienceType _audienceType;
+        private MuseumEventType _eventType;
+        private System.DateTimeOffset _startDate;
+        private System.DateTimeOffset? _endDate;
+        private string _ticketLink;
+        private System.Collections.Generic.ICollection<PhotoDto> _photos;
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
+        public System.Guid Id
+        {
+            get { return _id; }
 
-        [System.Text.Json.Serialization.JsonPropertyName("filePath")]
-        public string FilePath { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class MuseumEventDetailsVm
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("annotation")]
-        public string Annotation { get; set; }
+        public string Annotation
+        {
+            get { return _annotation; }
+
+            set
+            {
+                if (_annotation != value)
+                {
+                    _annotation = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("description")]
-        public string Description { get; set; }
+        public string Description
+        {
+            get { return _description; }
+
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Тип аудитории мероприятия
+        /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("audienceType")]
-        public AudienceType AudienceType { get; set; }
+        public AudienceType AudienceType
+        {
+            get { return _audienceType; }
+
+            set
+            {
+                if (_audienceType != value)
+                {
+                    _audienceType = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Тип музейного мероприятия
+        /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("eventType")]
-        public MuseumEventType EventType { get; set; }
+        public MuseumEventType EventType
+        {
+            get { return _eventType; }
+
+            set
+            {
+                if (_eventType != value)
+                {
+                    _eventType = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("startDate")]
-        public System.DateTime StartDate { get; set; }
+        public System.DateTimeOffset StartDate
+        {
+            get { return _startDate; }
+
+            set
+            {
+                if (_startDate != value)
+                {
+                    _startDate = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("endDate")]
-        public System.DateTime? EndDate { get; set; }
+        public System.DateTimeOffset? EndDate
+        {
+            get { return _endDate; }
+
+            set
+            {
+                if (_endDate != value)
+                {
+                    _endDate = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("ticketLink")]
-        public string TicketLink { get; set; }
+        public string TicketLink
+        {
+            get { return _ticketLink; }
+
+            set
+            {
+                if (_ticketLink != value)
+                {
+                    _ticketLink = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("photos")]
-        public System.Collections.Generic.ICollection<EventPhotoDto> Photos { get; set; }
+        public System.Collections.Generic.ICollection<PhotoDto> Photos
+        {
+            get { return _photos; }
 
+            set
+            {
+                if (_photos != value)
+                {
+                    _photos = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class MuseumEventListVm
+    public partial class MuseumEventListVm : System.ComponentModel.INotifyPropertyChanged
     {
+        private System.Collections.Generic.ICollection<MuseumEventLookupDto> _museumEvents;
 
         [System.Text.Json.Serialization.JsonPropertyName("museumEvents")]
-        public System.Collections.Generic.ICollection<MuseumEventLookupDto> MuseumEvents { get; set; }
+        public System.Collections.Generic.ICollection<MuseumEventLookupDto> MuseumEvents
+        {
+            get { return _museumEvents; }
 
+            set
+            {
+                if (_museumEvents != value)
+                {
+                    _museumEvents = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class MuseumEventLookupDto
+    public partial class MuseumEventLookupDto : System.ComponentModel.INotifyPropertyChanged
     {
+        private System.Guid _id;
+        private string _name;
+        private string _annotation;
+        private System.DateTimeOffset _startDate;
+        private System.DateTimeOffset? _endDate;
+        private AudienceType _audienceType;
+        private MuseumEventType _eventType;
+        private System.Collections.Generic.ICollection<PhotoDto> _photos;
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
-        public System.Guid Id { get; set; }
+        public System.Guid Id
+        {
+            get { return _id; }
+
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("name")]
-        public string Name { get; set; }
+        public string Name
+        {
+            get { return _name; }
+
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("annotation")]
-        public string Annotation { get; set; }
+        public string Annotation
+        {
+            get { return _annotation; }
+
+            set
+            {
+                if (_annotation != value)
+                {
+                    _annotation = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("startDate")]
-        public System.DateTime StartDate { get; set; }
+        public System.DateTimeOffset StartDate
+        {
+            get { return _startDate; }
+
+            set
+            {
+                if (_startDate != value)
+                {
+                    _startDate = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("endDate")]
-        public System.DateTime? EndDate { get; set; }
+        public System.DateTimeOffset? EndDate
+        {
+            get { return _endDate; }
+
+            set
+            {
+                if (_endDate != value)
+                {
+                    _endDate = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Тип аудитории мероприятия
+        /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("audienceType")]
-        public AudienceType AudienceType { get; set; }
+        public AudienceType AudienceType
+        {
+            get { return _audienceType; }
+
+            set
+            {
+                if (_audienceType != value)
+                {
+                    _audienceType = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Тип музейного мероприятия
+        /// </summary>
 
         [System.Text.Json.Serialization.JsonPropertyName("eventType")]
-        public MuseumEventType EventType { get; set; }
+        public MuseumEventType EventType
+        {
+            get { return _eventType; }
+
+            set
+            {
+                if (_eventType != value)
+                {
+                    _eventType = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("photos")]
-        public System.Collections.Generic.ICollection<EventPhotoDto> Photos { get; set; }
+        public System.Collections.Generic.ICollection<PhotoDto> Photos
+        {
+            get { return _photos; }
 
+            set
+            {
+                if (_photos != value)
+                {
+                    _photos = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
     }
 
+    /// <summary>
+    /// Тип музейного мероприятия
+    /// </summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
     public enum MuseumEventType
     {
@@ -1019,23 +1759,134 @@ namespace Museum.Frontend.Services
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ProblemDetails
+    public partial class PhotoDto : System.ComponentModel.INotifyPropertyChanged
     {
+        private System.Guid _id;
+        private string _filePath;
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id
+        {
+            get { return _id; }
+
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("filePath")]
+        public string FilePath
+        {
+            get { return _filePath; }
+
+            set
+            {
+                if (_filePath != value)
+                {
+                    _filePath = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ProblemDetails : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _type;
+        private string _title;
+        private int? _status;
+        private string _detail;
+        private string _instance;
 
         [System.Text.Json.Serialization.JsonPropertyName("type")]
-        public string Type { get; set; }
+        public string Type
+        {
+            get { return _type; }
+
+            set
+            {
+                if (_type != value)
+                {
+                    _type = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("title")]
-        public string Title { get; set; }
+        public string Title
+        {
+            get { return _title; }
+
+            set
+            {
+                if (_title != value)
+                {
+                    _title = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("status")]
-        public int? Status { get; set; }
+        public int? Status
+        {
+            get { return _status; }
+
+            set
+            {
+                if (_status != value)
+                {
+                    _status = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("detail")]
-        public string Detail { get; set; }
+        public string Detail
+        {
+            get { return _detail; }
+
+            set
+            {
+                if (_detail != value)
+                {
+                    _detail = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         [System.Text.Json.Serialization.JsonPropertyName("instance")]
-        public string Instance { get; set; }
+        public string Instance
+        {
+            get { return _instance; }
+
+            set
+            {
+                if (_instance != value)
+                {
+                    _instance = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -1046,6 +1897,264 @@ namespace Museum.Frontend.Services
             set { _additionalProperties = value; }
         }
 
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SouvenirDetailsVm : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.Guid _id;
+        private string _name;
+        private string _description;
+        private int _price;
+        private int _count;
+        private PhotoDto _photo;
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id
+        {
+            get { return _id; }
+
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name
+        {
+            get { return _name; }
+
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description
+        {
+            get { return _description; }
+
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("price")]
+        public int Price
+        {
+            get { return _price; }
+
+            set
+            {
+                if (_price != value)
+                {
+                    _price = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("count")]
+        public int Count
+        {
+            get { return _count; }
+
+            set
+            {
+                if (_count != value)
+                {
+                    _count = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("photo")]
+        public PhotoDto Photo
+        {
+            get { return _photo; }
+
+            set
+            {
+                if (_photo != value)
+                {
+                    _photo = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SouvenirListVm : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.Collections.Generic.ICollection<SouvenirLookupDto> _souvenirs;
+
+        [System.Text.Json.Serialization.JsonPropertyName("souvenirs")]
+        public System.Collections.Generic.ICollection<SouvenirLookupDto> Souvenirs
+        {
+            get { return _souvenirs; }
+
+            set
+            {
+                if (_souvenirs != value)
+                {
+                    _souvenirs = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class SouvenirLookupDto : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.Guid _id;
+        private string _name;
+        private string _description;
+        private int _price;
+        private int _count;
+        private PhotoDto _photo;
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public System.Guid Id
+        {
+            get { return _id; }
+
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name
+        {
+            get { return _name; }
+
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description
+        {
+            get { return _description; }
+
+            set
+            {
+                if (_description != value)
+                {
+                    _description = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("price")]
+        public int Price
+        {
+            get { return _price; }
+
+            set
+            {
+                if (_price != value)
+                {
+                    _price = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("count")]
+        public int Count
+        {
+            get { return _count; }
+
+            set
+            {
+                if (_count != value)
+                {
+                    _count = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        [System.Text.Json.Serialization.JsonPropertyName("photo")]
+        public PhotoDto Photo
+        {
+            get { return _photo; }
+
+            set
+            {
+                if (_photo != value)
+                {
+                    _photo = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null)
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.4.0.0 (NJsonSchema v11.3.2.0 (Newtonsoft.Json v13.0.0.0))")]
