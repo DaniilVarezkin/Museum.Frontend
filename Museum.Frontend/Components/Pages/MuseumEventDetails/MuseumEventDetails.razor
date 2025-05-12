@@ -3,6 +3,14 @@
 @using Museum.Frontend.Components.Pages.MuseumEventDetails.Components;
 @using Museum.Frontend.Infrastructure
 
+@if (DetailsVm != null)
+{
+    <PageTitle>@DetailsVm.Name</PageTitle>
+} else
+{
+    <PageTitle>Событие</PageTitle>
+}
+
 <div class="page-title" 
 style="background-image: url(@PagetTitleImg); background-size: cover">
     <div class="auto-container">
@@ -18,29 +26,18 @@ style="background-image: url(@PagetTitleImg); background-size: cover">
                     <h2 class="mb_40">@DetailsVm?.Name</h2>
                     <p class="mb_20">@DetailsVm?.Description</p>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                @if(DetailsVm != null)
+                @if (DetailsVm?.Photos != null && DetailsVm.Photos.Any())
                 {
-                    <WidgetComponent 
-                        StartDate="@DetailsVm.StartDate.DateTime"
-                                     EndDate="@(DetailsVm.EndDate.HasValue ? DetailsVm.EndDate.Value.DateTime : null)"
-                                     EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(DetailsVm.EventType)"/>
-                }
-            </div>
-        </div>
-        @if (DetailsVm?.Photos != null && DetailsVm.Photos.Any())
-        {
-        <h3 class="fs_40 mb_30">Фотографии</h3>
-        <div class="position-relative mb_60">
+                    <h3 class="fs_40 mb_30">Фотографии</h3>
+                    <div class="position-relative mb_60">
                         <div class="swiper room-gallery-slider">
                             <div class="swiper-wrapper">
-                                    @foreach (var photo in DetailsVm.Photos)
-                                    {
-                                        <div class="swiper-slide">
-                                            <img src="@Path.Combine(BaseUrl, photo.FilePath.Replace("\\", "/"))" alt="@DetailsVm">
-                                        </div>
-                                    }
+                                @foreach (var photo in DetailsVm.Photos)
+                                {
+                                    <div class="swiper-slide">
+                                        <img src="@Path.Combine(BaseUrl, photo.FilePath.Replace("\\", "/"))" alt="@DetailsVm">
+                                    </div>
+                                }
                             </div>
                             <!-- Добавляем навигационные кнопки -->
                             <div class="swiper-button-next px-4">
@@ -54,7 +51,19 @@ style="background-image: url(@PagetTitleImg); background-size: cover">
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
-         }
+                }
+            </div>
+            <div class="col-lg-4">
+                @if(DetailsVm != null)
+                {
+                    <WidgetComponent 
+                        StartDate="@DetailsVm.StartDate.DateTime"
+                                     EndDate="@(DetailsVm.EndDate.HasValue ? DetailsVm.EndDate.Value.DateTime : null)"
+                                     EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(DetailsVm.EventType)"/>
+                }
+            </div>
+        </div>
+        
     </div>
 </section>
 
