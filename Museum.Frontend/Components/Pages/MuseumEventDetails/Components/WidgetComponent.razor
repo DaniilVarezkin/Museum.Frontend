@@ -1,21 +1,43 @@
 ﻿@using Museum.Frontend.Infrastructure.Common
 <div class="widget gray-bg p_40">
-    <div class="d-flex align-items-center justify-content-between">
-        <h4 class="mb_20">@EventTypeDefenition</h4>
-        <h5 class="mb_20">@DateString</h5>
+    <div class="d-flex align-items-left justify-content-between flex-column mb-3">
+        <h4 class="mb-2">@DateString</h4>
+        <h5 class="mb-1">@EventTypeDefenition</h5>
+        <h5 class="mb-3">@AudienceTypeDefenition</h5>
+        <p class ="mb-3">
+            @Annotation
+        </p>
     </div>
+
+    @if (!string.IsNullOrEmpty(TicketLink))
+    {
+        <div class="link-btn">
+            <a href="@TicketLink" class="btn-1 btn-alt">
+                <i class="fas fa-ticket-alt me-2"></i>Купить билет<span></span>
+                </a>
+        </div>
+    }
 </div>
+
 @code {
     [Parameter]
     public DateTime StartDate { get; set; }
+
     [Parameter]
     public DateTime? EndDate { get; set; }
 
     [Parameter]
+    public string TicketLink { get; set; }
+
+    [Parameter]
     public string EventTypeDefenition { get; set; } = string.Empty;
 
-    public string DateString => EndDate.HasValue
-    ? DateFormater.FormatDateRange(StartDate, EndDate.Value)
-    : StartDate.ToString("dd MMMM");
+    [Parameter]
+    public string AudienceTypeDefenition { get; set; } = string.Empty;
+    [Parameter]
+    public string Annotation { get; set; } = string.Empty;
 
+    public string DateString => EndDate.HasValue
+        ? DateFormater.FormatDateRange(StartDate, EndDate.Value)
+        : StartDate.ToString("dd MMMM");
 }

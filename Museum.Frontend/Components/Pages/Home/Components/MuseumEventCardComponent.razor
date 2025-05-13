@@ -1,4 +1,7 @@
-﻿<div class="col-lg-4 col-md-6 mb-4">
+﻿
+@inject NavigationManager _navigationManager
+
+<div class="col-lg-4 col-md-6 mb-4">
     <div class="feature-1-block text-center wow h-100 fadeInLeft position-relative" data-wow-delay=".2s" data-wow-duration=".8s" style="padding-bottom: 60px;">
         <div class="feature-1-image hvr-img-zoom-1" style="height: 300px; overflow: hidden;">
             <div class="img-container h-100">
@@ -10,7 +13,7 @@
             @Text
         </p>
         <div class="feature-1-link position-absolute" style="bottom: 60px; left: 0; right: 0;">
-            <a class="feature-1-link-btn hvr-zoom-1 hvr-zoom-1-primary" href="@CardDetailsLink">
+            <a class="feature-1-link-btn hvr-zoom-1 hvr-zoom-1-primary" @onclick="NevigateToDetails">
                 <i class="icon-5"></i>
             </a>
         </div>
@@ -22,4 +25,9 @@
     [Parameter] public string Title { get; set; } = string.Empty;
     [Parameter] public string Text { get; set; } = string.Empty;
     [Parameter] public string CardDetailsLink { get; set; } = string.Empty;
+
+    void NevigateToDetails()
+    {
+        _navigationManager.NavigateTo(CardDetailsLink, true);
+    }
 }

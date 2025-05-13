@@ -1,4 +1,6 @@
-﻿@using Museum.Frontend.Infrastructure.Common
+﻿@inject NavigationManager _navigationManager
+
+@using Museum.Frontend.Infrastructure.Common
 <div class="col-lg-12">
     <div class="event-1-block align-items-center d-flex wow fadeInLeft" data-wow-delay=".2s" data-wow-duration=".8s">
         <div class="event-1-image">
@@ -14,7 +16,7 @@
             <p>
                 @Text
             </p>
-            <div class="link-btn"><a href="@CardDetailsLink" class="btn-1 btn-alt">Подробнее<span></span></a></div>
+            <div class="link-btn"><a @onclick="NevigateToDetails" class="btn-1 btn-alt">Подробнее<span></span></a></div>
         </div>
     </div>
 </div>
@@ -36,4 +38,9 @@
     public string DateString => EndDate.HasValue
     ? DateFormater.FormatDateRange(StartDate, EndDate.Value)
     : StartDate.ToString("dd MMMM");
+
+    void NevigateToDetails()
+    {
+        _navigationManager.NavigateTo(CardDetailsLink, true);
+    }
 }

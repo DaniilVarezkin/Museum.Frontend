@@ -58,8 +58,11 @@ style="background-image: url(@PagetTitleImg); background-size: cover">
                 {
                     <WidgetComponent 
                         StartDate="@DetailsVm.StartDate.DateTime"
-                                     EndDate="@(DetailsVm.EndDate.HasValue ? DetailsVm.EndDate.Value.DateTime : null)"
-                                     EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(DetailsVm.EventType)"/>
+                        EndDate="@(DetailsVm.EndDate.HasValue ? DetailsVm.EndDate.Value.DateTime : null)"
+                        EventTypeDefenition="@MuseumEventTypeDescriptions.GetMuseumEventTypeDescription(DetailsVm.EventType)"
+                        AudienceTypeDefenition="@AudienceTypeDescriptions.GetAudienceTypeDescription(DetailsVm.AudienceType)"
+                        Annotation="@DetailsVm.Annotation"
+                        TicketLink="@DetailsVm.TicketLink"/>
                 }
             </div>
         </div>
