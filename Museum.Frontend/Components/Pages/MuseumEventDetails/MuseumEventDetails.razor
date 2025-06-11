@@ -34,9 +34,12 @@ style="background-image: url(@PagetTitleImg); background-size: cover">
                             <div class="swiper-wrapper">
                                 @foreach (var photo in DetailsVm.Photos)
                                 {
-                                    <div class="swiper-slide">
-                                        <img src="@Path.Combine(BaseUrl, photo.FilePath.Replace("\\", "/"))" alt="@DetailsVm">
-                                    </div>
+                                    if (photo != null && !string.IsNullOrEmpty(photo.FilePath))
+                                    {
+                                        <div class="swiper-slide">
+                                            <img src="@Path.Combine(BaseUrl, photo.FilePath.Replace("\\", "/"))" alt="@DetailsVm">
+                                        </div>
+                                    }
                                 }
                             </div>
                             <!-- Добавляем навигационные кнопки -->

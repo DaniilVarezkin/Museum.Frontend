@@ -20,7 +20,7 @@ namespace Museum.Frontend.Components.Pages.MuseumEventDetails
 
         public string PagetTitleImg { get
             {
-                var photoPath = DetailsVm?.Photos.First().FilePath.Replace("\\", "/");
+                var photoPath = DetailsVm?.Photos?.FirstOrDefault()?.FilePath?.Replace("\\", "/");
                 if (photoPath != null)
                 {
                     return Path.Combine(BaseUrl, photoPath);

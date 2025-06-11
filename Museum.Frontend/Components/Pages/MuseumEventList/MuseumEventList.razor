@@ -20,7 +20,11 @@
                 {
                     string detailsLink = $"/museum-details/{museumEvent.Id.ToString()}";
 
-                    <EventCard ImageUrl="@Path.Combine(BaseUrl, museumEvent.Photos.First().FilePath.Replace("\\", "/"))"
+                    string photoUrl = museumEvent.Photos.FirstOrDefault() != null
+                    ? Path.Combine(BaseUrl, museumEvent.Photos.FirstOrDefault().FilePath.Replace("\\", "/"))
+                    : @"\assets\images\resource\no_photo.jpg";
+
+                    <EventCard ImageUrl="@photoUrl"
                         Title="@museumEvent.Name"
                         Text="@museumEvent.Annotation"
                         CardDetailsLink="@detailsLink"
